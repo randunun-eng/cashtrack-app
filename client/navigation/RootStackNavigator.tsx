@@ -1,12 +1,18 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import MainTabNavigator from "@/navigation/MainTabNavigator";
-import ModalScreen from "@/screens/ModalScreen";
+import AddTransactionScreen from "@/screens/AddTransactionScreen";
+import AddCardScreen from "@/screens/AddCardScreen";
+import PromotionDetailScreen from "@/screens/PromotionDetailScreen";
 import { useScreenOptions } from "@/hooks/useScreenOptions";
 
 export type RootStackParamList = {
-  Main: undefined;
-  Modal: undefined;
+  Main: { screen?: string } | undefined;
+  AddTransaction: undefined;
+  AddCard: undefined;
+  CardDetail: { cardId: string };
+  PromotionDetail: { promotionId: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -22,11 +28,26 @@ export default function RootStackNavigator() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Modal"
-        component={ModalScreen}
+        name="AddTransaction"
+        component={AddTransactionScreen}
         options={{
+          title: "Add Transaction",
           presentation: "modal",
-          headerTitle: "Modal",
+        }}
+      />
+      <Stack.Screen
+        name="AddCard"
+        component={AddCardScreen}
+        options={{
+          title: "Add Card",
+          presentation: "modal",
+        }}
+      />
+      <Stack.Screen
+        name="PromotionDetail"
+        component={PromotionDetailScreen}
+        options={{
+          title: "Promotion",
         }}
       />
     </Stack.Navigator>
